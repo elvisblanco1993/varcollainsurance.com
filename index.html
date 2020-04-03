@@ -115,7 +115,7 @@
         <div class="col-md-12">
           <h2 class="text-center">Contact Us Today</h2>
           <p class="lead text-center">Complete this form to get your free consultation.</p>
-          <h3 id='status_msg' class="text-success mb-2"></h3>
+          <h3 id='status_msg' class="text-success text-center mb-2"></h3>
             <form method='POST' id='contact_form'>
               <input type='text' name='refcode' value='cmhifb7epw65orkgu9n1az4lgyj2xd8tv03s' hidden='true'>
               <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
@@ -187,7 +187,7 @@
                         $('#interest_error').text('');
                         $('#captcha_error').text('');
                         grecaptcha.reset();
-                        $('#status_msg').text('Form successfully submited!');
+                        $('#status_msg').text('We got your request! We will be in touch shortly.');
                       } else {
                         $('#fname_error').text(data.fname_error);
                         $('#lname_error').text(data.lname_error);
