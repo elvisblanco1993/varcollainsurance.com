@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="assets/css/Footer-Basic.css?h=a3e8852db4c83b42a9443c88670026be">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="assets/css/styles.css?h=06ff3d3ae0895ee47559209f6de7a4da">
+  <script src='https://code.jquery.com/jquery-3.4.1.min.js' integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=' crossorigin='anonymous'></script>
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
     var Tawk_API = Tawk_API || {},
@@ -112,7 +115,7 @@
         <div class="col-md-12">
           <h2 class="text-center">Contact Us Today</h2>
           <p class="lead text-center">Complete this form to get your free consultation.</p>
-          <form action='https://webleads.app/api/contact/create.php?ref=wzpl3c6ye0jda974ggbhoi1tuxrvf2k85msn' method='POST'>
+          <!-- <form action='https://webleads.app/api/contact/create.php?ref=wzpl3c6ye0jda974ggbhoi1tuxrvf2k85msn' method='POST'>
 
             <input type='text' name='refcode' value='wzpl3c6ye0jda974ggbhoi1tuxrvf2k85msn' hidden='true'>
             <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
@@ -151,6 +154,32 @@
             </div>
             <div class="form-group">
               <input class="btn float-right btn-outline-primary form-control" id="submit" type='submit' name='SMBT' value="Get my quote" required>
+            </form> -->
+
+            <form method='POST' id='contact_form'>
+              <span id='status_msg'></span>
+              <input type='text' name='refcode' value='cmhifb7epw65orkgu9n1az4lgyj2xd8tv03s' hidden='true'>
+              <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
+              <input type='text' name='owner' value='4' hidden='true'>
+              <input type='text' name='audience_id' value='10' hidden='true'>
+              <input type='text' name='returnurl' value='https://www.varcollainsurance.com?formsubmission=ok' hidden='true'>
+              <input type='text' name='source' value='10' hidden='true'>
+
+              <input id='fname' type='text' name='fname' placeholder='First Name'>
+              <span id='fname_error'></span>
+              <input id='lname' type='text' name='lname' placeholder='Last Name'>
+              <span id='lname_error'></span>
+              <input id='email' type='email' name='email' placeholder='E-mail'>
+              <span id='email_error'></span>
+              <input id='tel' type='tel' name='tel' placeholder='Phone'>
+              <span id='tel_error'></span>
+              <input id='interest' type='text' name='interest[]' placeholder='Interest'>
+              <span id='interest_error'></span>
+              <textarea id='message' name='message' placeholder='Start writing your inquiry here...'></textarea>
+
+              <div class='g-recaptcha' data-sitekey='6Lfok-YUAAAAAJcl4vY_KoSvXdlYwpc1fkB1Joav'></div>
+              <span id='captcha_error'></span>
+              <input type='submit' id='submit' name='SMBT'>
             </form>
           </div>
         </div>
@@ -162,10 +191,47 @@
       <p class="copyright">Varcolla Insurance © <span id="year"></span></p>
     </footer>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/bs-init.js?h=98fdbbd86223499341d76166d015c405"></script>
   <script src="assets/js/setyear.js?h=9808cb93e4bab139e9abb71796c7718b"></script>
+  <script>
+    $(document).ready(function() {
+      $('#contact_form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: 'https://webleads.app/api/contact/create.php',
+          method: 'POST',
+          data: $(this).serialize(),
+          dataType: 'json',
+          beforeSend: function() {
+            $('#submit').attr('disabled', 'disabled');
+          },
+          success: function(data) {
+            $('#submit').attr('disabled', false);
+            if (data.success) {
+              $('#contact_form')[0].reset();
+              $('#fname_error').text('');
+              $('#lname_error').text('');
+              $('#email_error').text('');
+              $('#tel_error').text('');
+              $('#interest_error').text('');
+              $('#captcha_error').text('');
+              grecaptcha.reset();
+              $('#status_msg').text('Form successfully submited!');
+            } else {
+              $('#fname_error').text(data.fname_error);
+              $('#lname_error').text(data.lname_error);
+              $('#email_error').text(data.email_error);
+              $('#tel_error').text(data.tel_error);
+              $('#interest_error').text(data.interest_error);
+              $('#status_msg').text(data.integrity_error);
+              $('#captcha_error').text(data.captcha_error);
+            }
+          }
+        })
+      });
+    });
+  </script>
 </body>
 
 </html>
