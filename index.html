@@ -115,47 +115,6 @@
         <div class="col-md-12">
           <h2 class="text-center">Contact Us Today</h2>
           <p class="lead text-center">Complete this form to get your free consultation.</p>
-          <!-- <form action='https://webleads.app/api/contact/create.php?ref=wzpl3c6ye0jda974ggbhoi1tuxrvf2k85msn' method='POST'>
-
-            <input type='text' name='refcode' value='wzpl3c6ye0jda974ggbhoi1tuxrvf2k85msn' hidden='true'>
-            <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
-            <input type='text' name='owner' value='4' hidden='true'>
-            <input type='text' name='audience_id' value='10' hidden='true'>
-            <input type='text' name='returnurl' value='https://varcollainsurance.com?formsubmission=ok' hidden='true'>
-            <input type='text' name='source' value='10' hidden='true'>
-
-            <div class="form-group">
-              <input class='form-control' type='text' name='fname' placeholder='First Name' required>
-            </div>
-            <div class="form-group">
-              <input class='form-control' type='text' name='lname' placeholder='Last Name' required>
-            </div>
-            <div class="form-group">
-              <input class='form-control' type='email' name='email' placeholder='E-mail' required>
-            </div>
-            <div class="form-group">
-              <input class='form-control' type='tel' name='tel' placeholder='Phone' required>
-            </div>
-            <div class="form-group">
-              <select class="custom-select form-control" name="interest[ ]" multiple>
-                <optgroup label="I'm looking for:">
-                  <option value="auto-insurance">Auto insurance</option>
-                  <option value="home-insurance">Home insurance</option>
-                  <option value="commercial-insurance">Commercial insurance</option>
-                  <option value="boat-insurance">Boat insurance</option>
-                  <option value="motorcycle-insurance">Motorcycle insurance</option>
-                  <option value="truck-insurance">Truck insurance</option>
-                </optgroup>
-              </select>
-              <small class="text-muted">You can select more than one option.</small>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name='message' placeholder='Please write your message here...' rows='6'></textarea>
-            </div>
-            <div class="form-group">
-              <input class="btn float-right btn-outline-primary form-control" id="submit" type='submit' name='SMBT' value="Get my quote" required>
-            </form> -->
-
             <form method='POST' id='contact_form'>
               <span id='status_msg'></span>
               <input type='text' name='refcode' value='cmhifb7epw65orkgu9n1az4lgyj2xd8tv03s' hidden='true'>
@@ -165,21 +124,45 @@
               <input type='text' name='returnurl' value='https://www.varcollainsurance.com?formsubmission=ok' hidden='true'>
               <input type='text' name='source' value='10' hidden='true'>
 
-              <input id='fname' type='text' name='fname' placeholder='First Name'>
-              <span id='fname_error'></span>
-              <input id='lname' type='text' name='lname' placeholder='Last Name'>
-              <span id='lname_error'></span>
-              <input id='email' type='email' name='email' placeholder='E-mail'>
-              <span id='email_error'></span>
-              <input id='tel' type='tel' name='tel' placeholder='Phone'>
-              <span id='tel_error'></span>
-              <input id='interest' type='text' name='interest[]' placeholder='Interest'>
-              <span id='interest_error'></span>
-              <textarea id='message' name='message' placeholder='Start writing your inquiry here...'></textarea>
-
-              <div class='g-recaptcha' data-sitekey='6Lfok-YUAAAAAJcl4vY_KoSvXdlYwpc1fkB1Joav'></div>
-              <span id='captcha_error'></span>
-              <input type='submit' id='submit' name='SMBT'>
+              <div class="form-group">
+                <input id='fname' class='form-control' type='text' name='fname' placeholder='First Name' required>
+                <small id='fname_error' class="text-danger"></small>
+              </div>
+              <div class="form-group">
+                <input id='lname' class='form-control' type='text' name='lname' placeholder='Last Name' required>
+                <small id='lname_error' class="text-danger"></small>
+              </div>
+              <div class="form-group">
+                <input id='email' class='form-control' type='email' name='email' placeholder='E-mail' required>
+                <small id='email_error' class="text-danger"></small>
+              </div>
+              <div class="form-group">
+                <input id="tel" class='form-control' type='tel' name='tel' placeholder='Phone' required>
+                <small id='tel_error' class="text-danger"></small>
+              </div>
+              <div class="form-group">
+                <select id='interest' class="custom-select form-control" name="interest[ ]" multiple>
+                  <optgroup label="I'm looking for:">
+                    <option value="auto-insurance">Auto insurance</option>
+                    <option value="home-insurance">Home insurance</option>
+                    <option value="commercial-insurance">Commercial insurance</option>
+                    <option value="boat-insurance">Boat insurance</option>
+                    <option value="motorcycle-insurance">Motorcycle insurance</option>
+                    <option value="truck-insurance">Truck insurance</option>
+                  </optgroup>
+                  <small id='interest_error' class="text-danger"></small>
+                </select>
+              </div>
+              <div class="form-group">
+                <textarea id='message' class="form-control" name='message' placeholder='Please write your message here...' rows='6'></textarea>
+              </div>
+              <div class="form-group">
+                <div class='g-recaptcha' data-sitekey='6Lfok-YUAAAAAJcl4vY_KoSvXdlYwpc1fkB1Joav'></div>
+                <small id='captcha_error' class="text-danger"></small>
+              </div>
+              <div class="form-group">
+                <input class="btn float-right btn-outline-primary form-control" id="submit" type='submit' name='SMBT' value="Submit" required>
+              </div>
             </form>
           </div>
         </div>
