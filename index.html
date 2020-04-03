@@ -115,8 +115,8 @@
         <div class="col-md-12">
           <h2 class="text-center">Contact Us Today</h2>
           <p class="lead text-center">Complete this form to get your free consultation.</p>
+          <div id='status_msg' class="card card-success"></div>
             <form method='POST' id='contact_form'>
-              <span id='status_msg'></span>
               <input type='text' name='refcode' value='cmhifb7epw65orkgu9n1az4lgyj2xd8tv03s' hidden='true'>
               <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
               <input type='text' name='owner' value='4' hidden='true'>
@@ -164,6 +164,46 @@
                 <input class="btn float-right btn-outline-primary form-control" id="submit" type='submit' name='SMBT' value="Submit" required>
               </div>
             </form>
+            <script>
+              $(document).ready(function() {
+                $('#contact_form').on('submit', function(event) {
+                  event.preventDefault();
+                  $.ajax({
+                    url: 'https://webleads.app/api/contact/create.php',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    beforeSend: function() {
+                      $('#submit').attr('disabled', 'disabled');
+                    },
+                    success: function(data) {
+                      $('#submit').attr('disabled', false);
+                      if (data.success) {
+                        $('#contact_form')[0].reset();
+                        $('#fname_error').text('');
+                        $('#lname_error').text('');
+                        $('#email_error').text('');
+                        $('#tel_error').text('');
+                        $('#interest_error').text('');
+                        $('#captcha_error').text('');
+                        grecaptcha.reset();
+                        $('#status_msg').text('Form successfully submited!');
+                      } else {
+                        $('#fname_error').text(data.fname_error);
+                        $('#lname_error').text(data.lname_error);
+                        $('#email_error').text(data.email_error);
+                        $('#tel_error').text(data.tel_error);
+                        $('#interest_error').text(data.interest_error);
+                        $('#status_msg').text(data.integrity_error);
+                        $('#captcha_error').text(data.captcha_error);
+                        $('#contact_form')[0].reset();
+                        grecaptcha.reset();
+                      }
+                    }
+                  })
+                });
+              });
+            </script>
           </div>
         </div>
       </div>
@@ -177,44 +217,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/bs-init.js?h=98fdbbd86223499341d76166d015c405"></script>
   <script src="assets/js/setyear.js?h=9808cb93e4bab139e9abb71796c7718b"></script>
-  <script>
-    $(document).ready(function() {
-      $('#contact_form').on('submit', function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: 'https://webleads.app/api/contact/create.php',
-          method: 'POST',
-          data: $(this).serialize(),
-          dataType: 'json',
-          beforeSend: function() {
-            $('#submit').attr('disabled', 'disabled');
-          },
-          success: function(data) {
-            $('#submit').attr('disabled', false);
-            if (data.success) {
-              $('#contact_form')[0].reset();
-              $('#fname_error').text('');
-              $('#lname_error').text('');
-              $('#email_error').text('');
-              $('#tel_error').text('');
-              $('#interest_error').text('');
-              $('#captcha_error').text('');
-              grecaptcha.reset();
-              $('#status_msg').text('Form successfully submited!');
-            } else {
-              $('#fname_error').text(data.fname_error);
-              $('#lname_error').text(data.lname_error);
-              $('#email_error').text(data.email_error);
-              $('#tel_error').text(data.tel_error);
-              $('#interest_error').text(data.interest_error);
-              $('#status_msg').text(data.integrity_error);
-              $('#captcha_error').text(data.captcha_error);
-            }
-          }
-        })
-      });
-    });
-  </script>
 </body>
 
 </html>
