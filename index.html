@@ -29,7 +29,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="assets/css/styles.css?h=06ff3d3ae0895ee47559209f6de7a4da">
   <script src='https://code.jquery.com/jquery-3.4.1.min.js' integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=' crossorigin='anonymous'></script>
-  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+  <script src='https://www.google.com/recaptcha/api.js?render=6LfOOPoUAAAAAJKqOGkKFAuEI8qzoPBZ-vTDKG0C'></script>
+  <script>
+    grecaptcha.ready(function () {
+      grecaptcha.execute('6LfOOPoUAAAAAJKqOGkKFAuEI8qzoPBZ-vTDKG0C', { action: 'contact' }).then(function (token) {
+        var recaptchaResponse = document.getElementById('g-recaptcha');
+        recaptchaResponse.value = token;
+      });
+    });
+  </script>
 
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
@@ -117,32 +125,32 @@
           <p class="lead text-center">Complete this form to get your free consultation.</p>
           <h3 id='status_msg' class="text-success text-center mb-2"></h3>
             <form method='POST' id='contact_form'>
-              <input type='text' name='refcode' value='6zo95l8v21pwgf0xa3sbiecgjydtr7umkhn4' hidden='true'>
+              <input type='hidden' name='recaptcha_response' id='g-recaptcha'>
+              <input type='text' name='refcode' value='v0ir479glyacfj6p3nm1sgzdh8oe2xwtkb5u' hidden='true'>
               <input type='text' name='domain' value='varcollainsurance.com' hidden='true'>
               <input type='text' name='owner' value='260' hidden='true'>
-              <input type='text' name='audience_id' value='10084' hidden='true'>
+              <input type='text' name='audience_id' value='10091' hidden='true'>
               <input type='text' name='returnurl' value='https://varcollainsurance.com' hidden='true'>
-              <input type='text' name='source' value='10084' hidden='true'>
+              <input type='text' name='source' value='10091' hidden='true'>
 
               <div class="form-group">
                 <input id='fname' class='form-control' type='text' name='fname' placeholder='First Name' >
-                <small id='fname_error' class="text-danger"></small>
               </div>
               <div class="form-group">
                 <input id='lname' class='form-control' type='text' name='lname' placeholder='Last Name' >
-                <small id='lname_error' class="text-danger"></small>
               </div>
               <div class="form-group">
                 <input id='email' class='form-control' type='email' name='email' placeholder='E-mail' >
-                <small id='email_error' class="text-danger"></small>
               </div>
               <div class="form-group">
                 <input id="tel" class='form-control' type='tel' name='tel' placeholder='Phone' >
-                <small id='tel_error' class="text-danger"></small>
               </div>
               <div class="form-group">
-                <select id='interest' class="custom-select form-control" name="interest[ ]" multiple>
-                  <optgroup label="I'm looking for:">
+                <input class="form-control" id='zip' type='text' name='zip' placeholder='Zip code'>
+              </div>
+              <div class="form-group">
+                <select id='interest' class="custom-select form-control" name="interest[]">
+                  <optgroup label="I need insurance for:">
                     <option value="auto-insurance">Auto insurance</option>
                     <option value="home-insurance">Home insurance</option>
                     <option value="commercial-insurance">Commercial insurance</option>
@@ -150,58 +158,15 @@
                     <option value="motorcycle-insurance">Motorcycle insurance</option>
                     <option value="truck-insurance">Truck insurance</option>
                   </optgroup>
-                  <small id='interest_error' class="text-danger"></small>
                 </select>
               </div>
               <div class="form-group">
                 <textarea id='message' class="form-control" name='message' placeholder='Please write your message here...' rows='6'></textarea>
               </div>
               <div class="form-group">
-                <div class='g-recaptcha' data-sitekey='6Lfok-YUAAAAAJcl4vY_KoSvXdlYwpc1fkB1Joav'></div>
-                <small id='captcha_error' class="text-danger"></small>
-              </div>
-              <div class="form-group">
                 <input class="btn float-right btn-outline-primary form-control" id="submit" type='submit' name='SMBT' value="Submit" >
               </div>
             </form>
-            <script>
-              $(document).ready(function() {
-                $('#contact_form').on('submit', function(event) {
-                  event.preventDefault();
-                  $.ajax({
-                    url: 'https://webleads.app/api/contact/create.php',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    beforeSend: function() {
-                      $('#submit').attr('disabled', 'disabled');
-                    },
-                    success: function(data) {
-                      $('#submit').attr('disabled', false);
-                      if (data.success) {
-                        $('#contact_form')[0].reset();
-                        $('#fname_error').text('');
-                        $('#lname_error').text('');
-                        $('#email_error').text('');
-                        $('#tel_error').text('');
-                        $('#interest_error').text('');
-                        $('#captcha_error').text('');
-                        grecaptcha.reset();
-                        $('#status_msg').text('We got your request! We will be in touch shortly.');
-                      } else {
-                        $('#fname_error').text(data.fname_error);
-                        $('#lname_error').text(data.lname_error);
-                        $('#email_error').text(data.email_error);
-                        $('#tel_error').text(data.tel_error);
-                        $('#interest_error').text(data.interest_error);
-                        $('#status_msg').text(data.integrity_error);
-                        $('#captcha_error').text(data.captcha_error);
-                      }
-                    }
-                  })
-                });
-              });
-            </script>
           </div>
         </div>
       </div>
@@ -215,6 +180,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/bs-init.js?h=98fdbbd86223499341d76166d015c405"></script>
   <script src="assets/js/setyear.js?h=9808cb93e4bab139e9abb71796c7718b"></script>
+  <script>
+    $(document).ready(function() {
+      $('#contact_form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: 'https://webleads.app/api/contact/create.php',
+          method: 'POST',
+          data: $(this).serialize(),
+          dataType: 'json',
+          beforeSend: function() {
+            $('#submit').attr('disabled', 'disabled');
+          },
+          success: function(data) {
+            $('#submit').attr('disabled', false);
+            if (data.success) {
+              $('#contact_form')[0].reset();
+              $('#status_msg').text('It worked!'); // Edit this line to change success message.
+            } else {
+              $('#status_msg').text(data.response);
+            }
+          }
+        })
+      });
+    });
+  </script>
 </body>
-
 </html>
